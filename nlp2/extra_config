@@ -1,0 +1,1 @@
+options(jupyter.plot_mimetypes = "image/svg+xml")
