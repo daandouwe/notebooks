@@ -16,3 +16,8 @@ The notebook about binarizable permutations requires a chart parser
 
 * [Earley parser](https://github.com/wilkeraziz/pcfg-sampling.git)
   * all you need to do is to git-clone this repo and add it to your `PYTHONPATH` before starting the notebook
+
+* `networkx` and `nxpd` for drawing hypergraphs
+      pip install pygraphviz
+      pip install networkx
+      pip install nxpd
