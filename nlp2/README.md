@@ -19,6 +19,6 @@ The notebook about binarizable permutations requires a chart parser
 
 * `networkx` and `nxpd` for drawing hypergraphs
 
-      pip install pygraphviz
-      pip install networkx
-      pip install nxpd
+        pip install pygraphviz
+        pip install networkx
+        pip install nxpd
