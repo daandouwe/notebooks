@@ -43,6 +43,7 @@ class WCFG(object):
         return self._rules_by_lhs.get(lhs, frozenset())
 
     def get(self, lhs, default=frozenset()):
+        """rules whose LHS is the given symbol"""
         return self._rules_by_lhs.get(lhs, frozenset())
 
     def can_rewrite(self, lhs):
@@ -54,9 +55,11 @@ class WCFG(object):
         return lhs in self._rules_by_lhs
 
     def __iter__(self):
+        """iterator over rules (in arbitrary order)"""
         return iter(self._rules)
     
     def iteritems(self):
+        """iterator over pairs of the kind (LHS, rules rewriting LHS)"""
         return self._rules_by_lhs.iteritems()
     
     def __str__(self):
@@ -68,16 +71,7 @@ class WCFG(object):
 
 
 def read_grammar_rules(istream):
-    """
-    Reads grammar rules in cdec format.
-
-
-    >>> import math
-    >>> istream = ['[S] ||| [X] ||| 1.0', '[X] ||| [X] [X] ||| 0.5'] + ['[X] ||| %d ||| 0.1' % i for i in range(1,6)]
-    >>> rules = list(read_grammar_rules(istream, transform=log))
-    >>> rules
-    [[S] -> [X] (0.0), [X] -> [X] [X] (-0.69314718056), [X] -> 1 (-2.30258509299), [X] -> 2 (-2.30258509299), [X] -> 3 (-2.30258509299), [X] -> 4 (-2.30258509299), [X] -> 5 (-2.30258509299)]
-    """
+    """Reads grammar rules formatted as 'LHS ||| RHS ||| PROB'."""
     for line in istream:
         line = line.strip()
         if not line:
@@ -87,6 +81,6 @@ def read_grammar_rules(istream):
             raise ValueError('I expected 3 fields: %s', fields)
         lhs = fields[0].strip()
         rhs = fields[1].strip().split()
-        log_prob = math.log(float(fields[2].strip()))
-        yield Rule(lhs, rhs, log_prob)
+        prob = float(fields[2].strip())
+        yield Rule(lhs, rhs, prob)
 
