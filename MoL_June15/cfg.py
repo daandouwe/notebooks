@@ -79,8 +79,14 @@ def read_grammar_rules(istream):
     [[S] -> [X] (0.0), [X] -> [X] [X] (-0.69314718056), [X] -> 1 (-2.30258509299), [X] -> 2 (-2.30258509299), [X] -> 3 (-2.30258509299), [X] -> 4 (-2.30258509299), [X] -> 5 (-2.30258509299)]
     """
     for line in istream:
-        lhs, rhs, log_prob = line.strip().split(' ||| ')
-        rhs = rhs.split()
-        log_prob = math.log(float(log_prob))
+        line = line.strip()
+        if not line:
+            continue
+        fields = line.split('|||')
+        if len(fields) != 3:
+            raise ValueError('I expected 3 fields: %s', fields)
+        lhs = fields[0].strip()
+        rhs = fields[1].strip().split()
+        log_prob = math.log(float(fields[2].strip()))
         yield Rule(lhs, rhs, log_prob)
 

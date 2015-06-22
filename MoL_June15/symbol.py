@@ -1,4 +1,9 @@
 
+def is_terminal(symbol):
+    """nonterminals are formatted as this: [X]"""
+    return not is_nonterminal(symbol)
+
+
 def is_nonterminal(symbol):
     """nonterminals are formatted as this: [X]"""
     return symbol[0] == '[' and symbol[-1] == ']'
